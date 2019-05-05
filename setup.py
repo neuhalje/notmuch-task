@@ -41,10 +41,6 @@ def build_description():
 
 check_python_version()
 
-
-    # py_modules vs. packages?
-    #    py_modules=['yourscript'],
-
 setuptools.setup(name=read_package_variable('__project__'),
                  version=read_package_variable('__version__'),
 
@@ -54,7 +50,8 @@ setuptools.setup(name=read_package_variable('__project__'),
                  packages=setuptools.find_packages(exclude=['tests']),
 
                  entry_points={
-                     'console_scripts': ['neomutt2task = neomutt2task.cli.cli:cli', ]},
+                     'console_scripts': [f'neomutt2task = {PACKAGE_NAME}.cli.main:cli', ]
+                 },
 
                  long_description=build_description(), license='MIT',
                  classifiers=[

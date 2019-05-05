@@ -3,7 +3,7 @@ import logging
 import click
 
 from neomutt2task import messages, tasks
-from neomutt2task.cli import CONTEXT
+from neomutt2task.cli.globals import CONTEXT
 from neomutt2task.messages.mail import extract_mail_metadata
 from neomutt2task.sync import find_task_ids
 from neomutt2task.tasks.repository import Task, Taskwarrior
