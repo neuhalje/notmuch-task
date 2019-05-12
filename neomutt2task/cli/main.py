@@ -2,9 +2,9 @@ import logging
 
 import click
 
-from . import config
-from .globals import CONTEXT
 from neomutt2task.cli.commands import find_task, find_or_create_task
+from neomutt2task.cli.config import get_configuration
+from neomutt2task.cli.globals import CONTEXT
 
 
 @click.group()
@@ -16,7 +16,7 @@ def cli(debug: bool, configfile=None, logfile=None):
     else:
         logging.basicConfig(filename=logfile, level=logging.INFO)
 
-    CONTEXT.set_config(config.get_configuration(configfile))
+    CONTEXT.set_config(get_configuration(configfile))
 
 
 cli.add_command(find_task)

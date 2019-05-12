@@ -9,10 +9,10 @@ from neomutt2task.sync import find_task_ids
 from neomutt2task.tasks.repository import Task, Taskwarrior
 
 
-
-def _find_task(message_source,tag_prefix):
+def _find_task(message_source, tag_prefix):
     """
     Finds the taskwarrior task id(s) for a message.
+
     :param message_source: Path to an email OR None for stdin
     :return: returns all found taskids
     """
@@ -30,18 +30,18 @@ def _find_task(message_source,tag_prefix):
             return []
 
 
-
 @click.command()
 @click.argument('message_source', default=None, required=False)
 def find_task(message_source):
     """
     Finds the taskwarrior task id(s) for a message.
+
     :param message_source: Path to an email OR None for stdin
     :return: prints all found taskids to stdout
     """
     tag_prefix = CONTEXT.config.get("tags", "prefix")
     try:
-        task_ids = _find_task(message_source,    tag_prefix)
+        task_ids = _find_task(message_source, tag_prefix)
         if task_ids:
             for task_id in task_ids:
                 click.echo(task_id)
@@ -51,6 +51,7 @@ def find_task(message_source):
     except FileNotFoundError as e:
         click.echo(f"File {message_source} not found!", err=True)
         exit(1)
+
 
 def _find_or_create_task(message_source, tag_prefix):
     """
@@ -83,6 +84,8 @@ def _find_or_create_task(message_source, tag_prefix):
 @click.argument('message_source', default=None, required=False)
 def find_or_create_task(message_source):
     """
+    Returns the ID of the task, creates one if needed.
+
     Create a taskwarrior task from a message OR returns the IDs of the existing task(s).
 
     :param message_source: Path to an email OR None for stdin
