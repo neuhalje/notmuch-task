@@ -3,16 +3,45 @@ import logging
 import click
 
 from notmuchtask import messages, tasks
+from notmuchtask.cli.exitcodes import EXIT_GENERAL_ERROR, EXIT_FILE_NOT_FOUND, EXIT_TASK_NOT_FOUND, \
+    EXIT_MESSAGE_NOT_FOUND_IN_NOTMUCH
 from notmuchtask.cli.globals import CONTEXT
 from notmuchtask.messages.mail import extract_mail_metadata
-from notmuchtask.sync import find_task_ids
+from notmuchtask.sync import find_task_ids, MessageIdNotFoundException
 from notmuchtask.tasks.repository import Task, Taskwarrior
+
+
+def __exit_ok():
+    exit(0)
+
+
+def __exit_general_error(e):
+    click.echo(f"Unexpected error!", err=True)
+    logging.error(e)
+    exit(EXIT_GENERAL_ERROR)
+
+
+def __exit_file_not_found(filename):
+    click.echo(f"File '{filename}'' not found!", err=True)
+    exit(EXIT_FILE_NOT_FOUND)
+
+
+def __exit_task_not_found(filename):
+    click.echo(f"No task for '{filename}'' found!", err=True)
+    exit(EXIT_TASK_NOT_FOUND)
+
+def __exit_message_not_found_in_notmuch(message_id):
+    click.echo(f"Messageid '{message_id}'' not found in notmuch!", err=True)
+    exit(EXIT_MESSAGE_NOT_FOUND_IN_NOTMUCH)
+
+
 
 
 def _find_task(message_source, tag_prefix):
     """
     Finds the taskwarrior task id(s) for a message.
 
+    :exception MessageIdNotFoundException: message id not found in notmuch
     :param message_source: Path to an email OR None for stdin
     :return: returns all found taskids
     """
@@ -24,9 +53,8 @@ def _find_task(message_source, tag_prefix):
         if len(task_ids):
             return task_ids
         else:
-            # Message not in the index? Strange
             logging.debug(
-                f"""Message with id '{mail_meta.nm_message_id}' either not found in notmuch DB or has no task_id. aborting! """)
+                f"""Message with id '{mail_meta.nm_message_id}' has no task_id""")
             return []
 
 
@@ -47,10 +75,13 @@ def find_task(message_source):
                 click.echo(task_id)
         else:
             # Message not in the index? Strange
-            exit(1)
-    except FileNotFoundError as e:
-        click.echo(f"File {message_source} not found!", err=True)
-        exit(1)
+            __exit_task_not_found(message_source)
+    except FileNotFoundError:
+        __exit_file_not_found(message_source)
+    except MessageIdNotFoundException as e:
+        __exit_message_not_found_in_notmuch(e.message_id)
+    except Exception as e:
+        __exit_general_error(e)
 
 
 def _find_or_create_task(message_source, tag_prefix):
@@ -71,14 +102,13 @@ def _find_or_create_task(message_source, tag_prefix):
             return task_ids
         else:
             # create a new task
-            taskwarrior = Taskwarrior(CONTEXT.config.get("taskwarrior", "executable", fallback="task"))
+            taskwarrior = Taskwarrior(CONTEXT.config.get("taskwarrior", "executable"))
             with tasks.Repository(taskwarrior) as task_repo:
                 new_task = Task.new_task(mail_meta.nm_message_id, mail_meta.subject)
                 new_task = task_repo.create_task(new_task)
                 message_repo.add_tag(mail_meta.nm_message_id, f"{tag_prefix}{new_task.task_id}")
 
                 return [new_task.task_id]
-
 
 @click.command()
 @click.argument('message_source', default=None, required=False)
@@ -91,11 +121,14 @@ def find_or_create_task(message_source):
     :param message_source: Path to an email OR None for stdin
     :return: prints the task IDs to stdout
     """
-    tag_prefix = CONTEXT.config.get("tags", "prefix", fallback="taskid/")
+    tag_prefix = CONTEXT.config.get("tags", "prefix")
 
     try:
         for task_id in _find_or_create_task(message_source, tag_prefix):
             click.echo(task_id)
-    except FileNotFoundError as e:
-        click.echo(f"File {message_source} not found!", err=True)
-        exit(1)
+    except FileNotFoundError:
+        __exit_file_not_found(message_source)
+    except MessageIdNotFoundException as e:
+        __exit_message_not_found_in_notmuch(e.message_id)
+    except Exception as e:
+        __exit_general_error(e)

@@ -1,9 +1,17 @@
 import logging
 import re
 
+class MessageIdNotFoundException(Exception):
+    def __init__(self, message_id):
+        super().__init__()
+        self.message_id = message_id
 
 def find_task_ids(message_repo, nm_message_id, tag_prefix):
     nm_messages = list(message_repo.get_messages(f'id:{nm_message_id}'))
+
+    if not nm_messages:
+        raise MessageIdNotFoundException(nm_message_id)
+
     task_ids = []
 
     for nm_message in nm_messages:

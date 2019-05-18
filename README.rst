@@ -1,5 +1,5 @@
 #######################
-neomutt to taskwarrior
+mail to taskwarrior
 #######################
 
 Linking mails (mutt, neomutt) to taskwarrior tasks and the other way around by utilising notmuch.
@@ -38,6 +38,53 @@ The ``find-task`` command will find the task(s) assigned to a message
   # or reading the message by path
   notmuchtask  find-task test.eml
 
+Exit codes
+-----------
+
+0
+  Command ran successfully. The task-id has been written to stdout
+90
+  An unexpected error has occured
+91
+  File not found. The file passed could not be opened
+92
+  The message(-id) could not be found in notmuch
+93
+  The task could not be found
+
+Creating tasks
+===============
+
+The ``find-or-create-task`` command will find the task(s) assigned to a
+ message and will create a new task if needed.
+
+.. code:: shell
+
+  # reading the message from stdin
+  cat test.eml|notmuchtask  find-or-create-task
+  # the first time a new task is created with the subject as title
+  99c0768c-2dbd-4c8b-9b74-afe610653dd1
+
+  cat test.eml|notmuchtask  find-or-create-task
+  # the second time no new task is created
+  99c0768c-2dbd-4c8b-9b74-afe610653dd1
+
+  # or reading the message by path
+  notmuchtask  find-or-create-task test.eml
+  99c0768c-2dbd-4c8b-9b74-afe610653dd1
+
+
+Exit codes
+-----------
+
+0
+  Command ran successfully. The task-id has been written to stdout
+90
+  An unexpected error has occured
+91
+  File not found. The file passed could not be opened
+92
+  The message(-id) could not be found in notmuch
 
 (neo)mutt
 **************
@@ -46,7 +93,8 @@ Add this to your ``.muttrc``:
 
 .. code:: text
 
-  macro index,pager t "<pipe-message>mutt2task.py<enter>
+  macro index,pager tf "<pipe-message>notmuchtask find-task<enter>
+  macro index,pager tc "<pipe-message>notmuchtask find-or-create-task<enter>
 
 
 configuring
@@ -105,3 +153,5 @@ TODOs
 ****************
 
 * Transaction with task and notmuch incl. locking
+* ``Makefile`` for development tasks
+* Virtual folder to include tasks in mutt (??)
