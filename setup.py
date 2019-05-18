@@ -61,6 +61,6 @@ setuptools.setup(name=read_package_variable('__project__'),
                      'Programming Language :: Python :: 3',
                      'Programming Language :: Python :: 3.6', ],
 
-                 python_requires='>=3.6,<3.7',
+                 python_requires='>=3.6,<3.8',
                  install_requires=["click >=7.0, <7.1", "notmuch"],
                  )
