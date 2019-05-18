@@ -3,15 +3,6 @@
 #python_version = "3.6"
 
 [dev-packages]
-coverage = "~=4.0"
-docutils = "*"
-mkdocs = "*"
-pycodestyle = "~=2.3"
-pydocstyle = "~=2.0"
-pygments = "*"
-pyinstaller = "*"
-pylint = "~=1.7"
-pytest = "~=3.0.7"
 twine = "*"
 wheel = "*"
 
@@ -19,4 +10,4 @@ wheel = "*"
 click = "~=7.0"
 # Notmuch is a system package. Install it via apt install python3-notmuch
 #notmuch = "*"
-notmuchtask = {editable = true,path = "."}
+#notmuchtask = {editable = true,path = "."}

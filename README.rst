@@ -146,7 +146,9 @@ For testing purposes you can run the code directly from the repository:
   # Setup the virtual environment
   # Install site package with python3 bindings for notmuch
   apt install python3-notmuch
+  pipenv --rm  # just in case
   pipenv --python 3.6 --site-packages
+  pipenv install --dev
 
 .. code:: shell
 
