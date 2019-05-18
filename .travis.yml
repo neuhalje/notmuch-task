@@ -1,4 +1,14 @@
-dist: xenial
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+    - os: linux
+      dist: bionic
+    - os: linux
+      dist: cosmic
+    - os: linux
+      dist: disco
+
 language: python
 python:
   - "3.5"
@@ -20,7 +30,7 @@ env:
   - PIPENV_VERBOSITY=-1
 
 install:
-  - sudo pip3 install pipenv
+  - sudo pip install pipenv
 
 script:
   - ./integration_tests.sh
