@@ -7,7 +7,7 @@ import sys
 
 import setuptools
 
-PACKAGE_NAME = 'neomutt2task'
+PACKAGE_NAME = 'notmuchtask'
 MINIMUM_PYTHON_VERSION = '3.6'
 
 
@@ -44,13 +44,13 @@ check_python_version()
 setuptools.setup(name=read_package_variable('__project__'),
                  version=read_package_variable('__version__'),
 
-                 description="Sync mails in neomutt with taskwarrior", url='https://github.com/neuhalje/neomutt2task',
+                 description="Sync mails in neomutt with taskwarrior", url='https://github.com/neuhalje/notmuchtask',
                  author='Jens Neuhalfen', author_email='jens@neuhalfen.name',
 
                  packages=setuptools.find_packages(exclude=['tests']),
 
                  entry_points={
-                     'console_scripts': [f'neomutt2task = {PACKAGE_NAME}.cli.main:cli', ]
+                     'console_scripts': [f'notmuchtask = {PACKAGE_NAME}.cli.main:cli', ]
                  },
 
                  long_description=build_description(), license='MIT',

@@ -2,9 +2,9 @@ import logging
 
 import click
 
-from neomutt2task.cli.commands import find_task, find_or_create_task
-from neomutt2task.cli.config import get_configuration
-from neomutt2task.cli.globals import CONTEXT
+from notmuchtask.cli.commands import find_task, find_or_create_task
+from notmuchtask.cli.config import get_configuration
+from notmuchtask.cli.globals import CONTEXT
 
 
 @click.group()

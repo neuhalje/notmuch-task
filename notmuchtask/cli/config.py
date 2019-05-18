@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) Jens Neuhalfen
 
-from __future__ import print_function, absolute_import, unicode_literals
-
 import logging
 import os
 
@@ -13,13 +11,21 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
+__DEFAULT_CONFIG = """
+[tags]
+prefix = taskid:                                                                                                                                                            
+
+[taskwarrior]
+executable = task
+"""
 
 def get_configuration(path=None):
     candidates = [path,
-                  os.environ.get('NEOMUTT2TASKRC'),
-                  os.path.expanduser('~/.neomutt2task.conf')]
+                  os.environ.get('NOTMUCHTASKRC'),
+                  os.path.expanduser('~/.notmuchtask.conf')]
 
     config = configparser.RawConfigParser()
+    config.read_string(__DEFAULT_CONFIG, source="<default config>")
 
     for candidate in candidates:
         if candidate:
@@ -27,6 +33,5 @@ def get_configuration(path=None):
                 logging.debug(f"Using config file {candidate}")
                 config.read(candidate)
                 return config
-    config.add_section("tags")
-    config.set("tags", "prefix", "taskid:")
+
     return config

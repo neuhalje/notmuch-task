@@ -10,10 +10,11 @@ try:
 except ImportError:
     import ConfigParser as configparser
 
+
 class GetListMixIn(object):
-    def get_list(self, section, key, delimiter = ';',
-                 filter_ = lambda value: value.strip(),
-                 include_falsish = False):
+    def get_list(self, section, key, delimiter=';',
+                 filter_=lambda value: value.strip(),
+                 include_falsish=False):
         result = (filter_(value)
                   for value in self.get(section, key).split(delimiter))
 
@@ -21,6 +22,7 @@ class GetListMixIn(object):
             return result
         else:
             return filter(None, result)
+
 
 class SafeConfigParser(configparser.SafeConfigParser, GetListMixIn): pass
 class RawConfigParser(configparser.RawConfigParser, GetListMixIn): pass

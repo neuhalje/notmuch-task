@@ -9,4 +9,4 @@ fi
 
 # Prevent globbing; allow to pass --cors '*'
 set -f
-pipenv  run  python $PROFILE neomutt2task/__main__.py $*
+pipenv  run  python $PROFILE notmuchtask/__main__.py $*

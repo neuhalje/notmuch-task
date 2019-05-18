@@ -2,11 +2,11 @@ import logging
 
 import click
 
-from neomutt2task import messages, tasks
-from neomutt2task.cli.globals import CONTEXT
-from neomutt2task.messages.mail import extract_mail_metadata
-from neomutt2task.sync import find_task_ids
-from neomutt2task.tasks.repository import Task, Taskwarrior
+from notmuchtask import messages, tasks
+from notmuchtask.cli.globals import CONTEXT
+from notmuchtask.messages.mail import extract_mail_metadata
+from notmuchtask.sync import find_task_ids
+from notmuchtask.tasks.repository import Task, Taskwarrior
 
 
 def _find_task(message_source, tag_prefix):
