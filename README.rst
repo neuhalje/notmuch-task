@@ -131,17 +131,23 @@ The following config files are evaluated, the first found configfile is used:
 Develop
 =============
 
+Tidbits about development.
+
 ****************
 Run DEV version
 ****************
 
-.. code:: shell 
+For testing purposes you can run the code directly from the repository:
+
+.. code:: shell
+
   # Setup the virtual environment
   # Install site package with python3 bindings for notmuch
   apt install python3-notmuch
   pipenv --python 3.6 --site-packages
 
-.. code:: shell 
+.. code:: shell
+
   # run the code
   pipenv shell
   pip install --editable .
