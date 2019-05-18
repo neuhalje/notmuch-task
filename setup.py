@@ -44,7 +44,7 @@ check_python_version()
 setuptools.setup(name=read_package_variable('__project__'),
                  version=read_package_variable('__version__'),
 
-                 description="Sync mails in neomutt with taskwarrior", url='https://github.com/neuhalje/notmuchtask',
+                 description="Sync mails in neomutt with taskwarrior", url='https://github.com/neuhalje/notmuch-task',
                  author='Jens Neuhalfen', author_email='jens@neuhalfen.name',
 
                  packages=setuptools.find_packages(exclude=['tests']),

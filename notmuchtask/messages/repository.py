@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: ISC
 #
+# Current version by Jens Neuhalfen
+#
 # Original version from afew:
 # Copyright (c) Justus Winter <4winter@informatik.uni-hamburg.de>
 
