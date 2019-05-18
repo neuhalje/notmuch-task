@@ -18,6 +18,7 @@ addons:
 
 env:
   - xPIPENV_IGNORE_VIRTUALENVS=1
+  - PIPENV_VERBOSITY=-1
 
 install:
   - sudo pip3 install pipenv

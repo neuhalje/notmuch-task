@@ -16,6 +16,8 @@ class Task(object):
 class Taskwarrior(object):
     def __init__(self, tw_executable):
         self.tw_executable = tw_executable
+        import sys
+        self._subprocess_has_encoding = sys.version_info.minor >= 6
 
     def add(self, subject):
         self._task("add", subject)
@@ -29,9 +31,15 @@ class Taskwarrior(object):
     def _task(self, *args):
         cmd = [self.tw_executable, *args]
         logging.debug("Executing {}".format(cmd))
-        # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-        res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
+
+        if self._subprocess_has_encoding:
+            # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
+            res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+        else:
+            # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
+            res = subprocess.run(cmd, stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
         if res.returncode != 0:
             logging.error(res.stderr)
             raise Exception("Error running {}".format(' '.join(cmd)))
