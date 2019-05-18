@@ -1,8 +1,8 @@
 dist: xenial
-language: python
-python:
-  - "3.6"
-  - "3.7"
+#language: python
+#python:
+#  - "3.6"
+#  - "3.7"
 
 addons:
   apt:
@@ -16,7 +16,6 @@ env:
   global:
     - PIPENV_VENV_IN_PROJECT=0
     - PIPENV_IGNORE_VIRTUALENVS=1
-    - PIPENV_SYSTEM=1
 
 install:
   - pip3 install pipenv
