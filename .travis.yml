@@ -13,7 +13,10 @@ addons:
      - python3-notmuch
 
 env:
-  - disabledPIPENV_IGNORE_VIRTUALENVS=1
+  global:
+    - PIPENV_VENV_IN_PROJECT=0
+    - PIPENV_IGNORE_VIRTUALENVS=1
+    - PIPENV_SYSTEM=1
 
 install:
   - pip3 install pipenv
