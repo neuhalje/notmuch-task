@@ -1,5 +1,7 @@
 dist: xenial
 language: python
+python:
+  - "3.5"
 
 virtualenv:
   system_site_packages: true
@@ -7,16 +9,18 @@ virtualenv:
 addons:
   apt:
     packages:
+     - python3
+     - python3-pip
      - taskwarrior
      - notmuch
      - python-notmuch
      - python3-notmuch
 
 env:
-  - PIPENV_IGNORE_VIRTUALENVS=1
+  - xPIPENV_IGNORE_VIRTUALENVS=1
 
 install:
-  - pip3 install pipenv
+  - sudo pip3 install pipenv
 
 script:
   - ./integration_tests.sh

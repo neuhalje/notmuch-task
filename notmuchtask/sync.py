@@ -7,7 +7,7 @@ class MessageIdNotFoundException(Exception):
         self.message_id = message_id
 
 def find_task_ids(message_repo, nm_message_id, tag_prefix):
-    nm_messages = list(message_repo.get_messages(f'id:{nm_message_id}'))
+    nm_messages = list(message_repo.get_messages('id:{}'.format(nm_message_id)))
 
     if not nm_messages:
         raise MessageIdNotFoundException(nm_message_id)
@@ -15,13 +15,13 @@ def find_task_ids(message_repo, nm_message_id, tag_prefix):
     task_ids = []
 
     for nm_message in nm_messages:
-        logging.debug(f"Found a mail '{nm_message.get_filename()}'.. looking for tags prefixed with '{tag_prefix}'")
+        logging.debug("Found a mail '{}'.. looking for tags prefixed with '{}'".format(nm_message.get_filename(), tag_prefix))
         nm_tags = nm_message.get_tags()
         for nm_tag in nm_tags:
-            logging.debug(f"Tag: {nm_tag} ")
+            logging.debug("Tag: {} ".format(nm_tag))
 
-            match = re.fullmatch(rf'{tag_prefix}(.+)', nm_tag)
+            match = re.fullmatch(r'{}(.+)'.format(tag_prefix), nm_tag)
             if match:
-                logging.debug(f"Task: {match[1]} ")
+                logging.debug("Task: {} ".format(match[1]))
                 task_ids.append(match[1])
     return task_ids

@@ -30,7 +30,7 @@ def get_configuration(path=None):
     for candidate in candidates:
         if candidate:
             if os.path.isfile(candidate):
-                logging.debug(f"Using config file {candidate}")
+                logging.debug("Using config file {}".format(candidate))
                 config.read(candidate)
                 return config
 

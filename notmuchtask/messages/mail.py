@@ -30,11 +30,10 @@ def _parse_email(src):
 def extract_mail_metadata(message_source):
     if message_source:
         message_source = os.path.expanduser(message_source)
-        logging.debug(f"Parsing message from {message_source}")
+        logging.debug("Parsing message from {}".format(message_source))
         with open(message_source, "r") as f:
             mail_meta = _parse_email(f)
     else:
         logging.debug("Parsing message from stdin")
         mail_meta = _parse_email(sys.stdin)
-    logging.debug(f"Message meta data: {mail_meta}.")
     return mail_meta

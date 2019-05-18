@@ -16,25 +16,24 @@ def __exit_ok():
 
 
 def __exit_general_error(e):
-    click.echo(f"Unexpected error!", err=True)
+    click.echo("Unexpected error!", err=True)
     logging.error(e)
     exit(EXIT_GENERAL_ERROR)
 
 
 def __exit_file_not_found(filename):
-    click.echo(f"File '{filename}'' not found!", err=True)
+    click.echo("File '{}'' not found!".format(filename), err=True)
     exit(EXIT_FILE_NOT_FOUND)
 
 
-def __exit_task_not_found(filename):
-    click.echo(f"No task for '{filename}'' found!", err=True)
+def __exit_task_not_found(message_id):
+    click.echo("No task for '{}'' found!".format(message_id), err=True)
     exit(EXIT_TASK_NOT_FOUND)
 
+
 def __exit_message_not_found_in_notmuch(message_id):
-    click.echo(f"Messageid '{message_id}'' not found in notmuch!", err=True)
+    click.echo("Messageid '{}'' not found in notmuch!".format(message_id), err=True)
     exit(EXIT_MESSAGE_NOT_FOUND_IN_NOTMUCH)
-
-
 
 
 def _find_task(message_source, tag_prefix):
@@ -54,7 +53,7 @@ def _find_task(message_source, tag_prefix):
             return task_ids
         else:
             logging.debug(
-                f"""Message with id '{mail_meta.nm_message_id}' has no task_id""")
+                """Message with id '{}' has no task_id""".format(mail_meta.nm_message_id))
             return []
 
 
@@ -97,7 +96,7 @@ def _find_or_create_task(message_source, tag_prefix):
     with messages.Repository() as message_repo:
         task_ids = find_task_ids(message_repo, mail_meta.nm_message_id, tag_prefix)
         if task_ids:
-            logging.debug(f"This message already has the following task IDs assigned: {', '.join(task_ids)}")
+            logging.debug("This message already has the following task IDs assigned: {}".format(', '.join(task_ids)))
             # TODO: assert that the task exists
             return task_ids
         else:
@@ -106,9 +105,10 @@ def _find_or_create_task(message_source, tag_prefix):
             with tasks.Repository(taskwarrior) as task_repo:
                 new_task = Task.new_task(mail_meta.nm_message_id, mail_meta.subject)
                 new_task = task_repo.create_task(new_task)
-                message_repo.add_tag(mail_meta.nm_message_id, f"{tag_prefix}{new_task.task_id}")
+                message_repo.add_tag(mail_meta.nm_message_id, "{}{}".format(tag_prefix, new_task.task_id))
 
                 return [new_task.task_id]
+
 
 @click.command()
 @click.argument('message_source', default=None, required=False)

@@ -170,8 +170,7 @@ class Repository(object):
     def find_message(self, message_id):
         message = self.open(rw=True).find_message(message_id)
         if not message:
-            logging.debug(f"Message {message_id} not found")
-            raise Exception(f"Message {message_id} not found")
+            raise Exception("Message {} not found".format(message_id))
         return message
 
     def add_tag(self, message_id, tag):

@@ -1,6 +1,8 @@
 #######################
 mail to taskwarrior
 #######################
+.. image:: https://travis-ci.org/neuhalje/notmuch-task.svg?branch=master
+    :target: https://travis-ci.org/neuhalje/notmuch-task
 
 Linking mails (mutt, neomutt) to taskwarrior tasks and the other way around by utilising notmuch.
 

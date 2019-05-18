@@ -98,7 +98,9 @@ fi
 
 export WORKON_HOME="${temp_dir}/venv"
 mkdir -p "$WORKON_HOME" || { echo failed to create $WORKON_HOME; exit 1; }
-$pipenv --python 3 --site-packages >&2 || { echo failed to create venv ; exit 1; }
+$pipenv --three --site-packages >&2 || { echo failed to create venv ; exit 1; }
+$pipenv run python --version >&2
+$pipenv run pip --version >&2
 $pipenv run pip install  --editable .  >&2 || { echo failed to install from source; exit 1; }
 
 # eval this

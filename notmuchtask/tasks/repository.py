@@ -28,14 +28,17 @@ class Taskwarrior(object):
 
     def _task(self, *args):
         cmd = [self.tw_executable, *args]
-        logging.debug(f"Executing {cmd}")
+        logging.debug("Executing {}".format(cmd))
         # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-        res = subprocess.run(cmd, encoding="utf-8",stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE)
+        res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
         if res.returncode != 0:
             logging.error(res.stderr)
-            raise Exception(f"Error running {' '.join(cmd)}")
+            raise Exception("Error running {}".format(' '.join(cmd)))
         return str(res.stdout)
+
+    def rollback(self):
+        self._task(['rc.confirmation=off', 'undo'])
 
 
 class Repository(object):
@@ -68,7 +71,7 @@ class Repository(object):
         task_id = self.tw.add(task.subject)
         task.task_id = task_id
 
-        self.tw.annotate(task_id, f"Imported from message {task.message_id}")
+        self.tw.annotate(task_id, "Imported from message {}".format(task.message_id))
         # TODO: add UDA
         # FIXME: load from repo
         return task

@@ -8,7 +8,7 @@ import sys
 import setuptools
 
 PACKAGE_NAME = 'notmuchtask'
-MINIMUM_PYTHON_VERSION = '3.6'
+MINIMUM_PYTHON_VERSION = '3.5'
 
 
 def check_python_version():
@@ -44,13 +44,13 @@ check_python_version()
 setuptools.setup(name=read_package_variable('__project__'),
                  version=read_package_variable('__version__'),
 
-                 description="Sync mails in neomutt with taskwarrior", url='https://github.com/neuhalje/notmuch-task',
+                 description="Sync mails in notmuch with taskwarrior", url='https://github.com/neuhalje/notmuch-task',
                  author='Jens Neuhalfen', author_email='jens@neuhalfen.name',
 
                  packages=setuptools.find_packages(exclude=['tests']),
 
                  entry_points={
-                     'console_scripts': [f'notmuchtask = {PACKAGE_NAME}.cli.main:cli', ]
+                     'console_scripts': [ 'notmuchtask = %s.cli.main:cli' % (PACKAGE_NAME, ), ]
                  },
 
                  long_description=build_description(), license='MIT',
@@ -61,6 +61,6 @@ setuptools.setup(name=read_package_variable('__project__'),
                      'Programming Language :: Python :: 3',
                      'Programming Language :: Python :: 3.6', ],
 
-                 python_requires='>=3.6,<3.8',
+                 python_requires='>=%s' % (MINIMUM_PYTHON_VERSION, ),
                  install_requires=["click >=7.0, <7.1", "notmuch"],
                  )
