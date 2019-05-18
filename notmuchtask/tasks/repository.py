@@ -34,16 +34,16 @@ class Taskwarrior(object):
 
         if self._subprocess_has_encoding:
             # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-            res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+            res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout = res.stdout
         else:
             # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-            res = subprocess.run(cmd, stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout = res.stdout.decode("utf-8")
         if res.returncode != 0:
             logging.error(res.stderr)
             raise Exception("Error running {}".format(' '.join(cmd)))
-        return str(res.stdout)
+        return str(stdout)
 
     def rollback(self):
         self._task(['rc.confirmation=off', 'undo'])
