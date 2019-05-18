@@ -1,5 +1,6 @@
 [requires]
-python_version = "3.6"
+# we also support 3.7, so do not pose a version here
+#python_version = "3.6"
 
 [dev-packages]
 coverage = "~=4.0"
