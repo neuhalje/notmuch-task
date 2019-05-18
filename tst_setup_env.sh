@@ -22,11 +22,10 @@ get_exec()
    echo $cmd
 }
 
-notmuch=$(get_exec "notmuch")
-task=$(get_exec "task")
-pipenv=$(get_exec "pipenv")
-mktemp=$(get_exec "mktemp")
-
+notmuch=$(get_exec "notmuch") || exit 1
+task=$(get_exec "task") || exit 1
+pipenv=$(get_exec "pipenv") || exit 1
+mktemp=$(get_exec "mktemp") || exit 1
 
 #
 # Setup

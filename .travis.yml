@@ -1,13 +1,4 @@
-matrix:
-  include:
-    - os: linux
-      dist: xenial
-    - os: linux
-      dist: bionic
-    - os: linux
-      dist: cosmic
-    - os: linux
-      dist: disco
+dist: xenial
 
 language: python
 python:
