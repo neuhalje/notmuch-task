@@ -21,10 +21,11 @@ test_exitcode()
   echo "$test_name" >&2
   shift
   shift
+  echo "Running: $*" >&2
   $*
   actual=$?
   if [ ! $actual -eq $expected ]; then
-    echo "FAILED: $test_name: Expected exit code $expected but got $actual for command '$*'" >&2
+    echo "FAILED: $test_name: Expected exit code $expected but got $actual" >&2
     count_error
   fi
 }
@@ -59,14 +60,28 @@ same()
   fi
 }
 
+new_test()
+{
+ echo >&2
+ echo ------------------------- $1 >&2
+ echo >&2
+}
+
+new_test "help"
 test_exitcode 0 "help works" notmuchtask --help
+
+new_test "invalid file handling"
 test_exitcode 91 "Correct error for invalid file"  notmuchtask find-task /not/existing
+test_exitcode 91 "Correct error for invalid file"  notmuchtask find-or-create-task /not/existing
 
 MSG_1=$MAILDIR/sample-mail.txt
+
+new_test "mails without tasks"
 taskid=$(test_exitcode 93 "find-task for message without task is empty" notmuchtask find-task $MSG_1)
 empty "No taskid returned if no task found" "$taskid"
 
-taskid_created=$(test_exitcode 0 "find-or-create-task for message without task gives id" notmuchtask find-or-create-task $MSG_1)
+new_test "creating tasks is idempotend"
+taskid_created=$(test_exitcode 0 "find-or-create-task for message without task gives id" notmuchtask --debug find-or-create-task $MSG_1)
 not_empty "taskid should be returned if task is created" "$taskid_created"
 
 taskid_found=$(test_exitcode 0 "find-task for message with task is returned" notmuchtask find-task $MSG_1)
