@@ -1,0 +1,28 @@
+dist: trusty
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+
+addons:
+  apt:
+    packages:
+     - taskwarrior
+     - notmuch
+     - python-notmuch
+     - python3-notmuch
+
+env:
+  - PIPENV_IGNORE_VIRTUALENVS=1
+
+install:
+  - pip3 install pipenv
+
+script:
+  - ./integration_tests.sh

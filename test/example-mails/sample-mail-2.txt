@@ -1,0 +1,10 @@
+From: sender@localhost
+To: recipient@localhost
+Subject: Example Message 02
+Message-ID: <02@example-mail>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Date: Wed, 3 Apr 2019 09:54:54 +0200
+
+Demo
