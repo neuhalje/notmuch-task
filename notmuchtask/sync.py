@@ -22,6 +22,6 @@ def find_task_ids(message_repo, nm_message_id, tag_prefix):
 
             match = re.fullmatch(r'{}(.+)'.format(tag_prefix), nm_tag)
             if match:
-                logging.debug("Task: {} ".format(match[1]))
-                task_ids.append(match[1])
+                logging.debug("Task: {} ".format(match.group(1)))
+                task_ids.append(match.group(1))
     return task_ids
