@@ -11,7 +11,9 @@ clean-build: clean-pyc
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
 
-build: clean-build lint
+clean: clean-build clean-pyc
+
+build: clean lint
 	pipenv run python setup.py sdist bdist_wheel
 
 pypi-test: build
