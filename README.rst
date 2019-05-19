@@ -14,7 +14,7 @@ Linking mails (mutt, neomutt) to taskwarrior tasks and the other way around by u
 Installing
 **************
 
-TODO!
+``pip install notmuchtask``
 
 
 =============
@@ -82,7 +82,7 @@ Exit codes
 0
   Command ran successfully. The task-id has been written to stdout
 90
-  An unexpected error has occured
+  An unexpected error has occurred
 91
   File not found. The file passed could not be opened
 92
@@ -162,6 +162,8 @@ For testing purposes you can run the code directly from the repository:
 TODOs
 ****************
 
+* FIX Linter
 * Transaction with task and notmuch incl. locking
-* ``Makefile`` for development tasks
-* Virtual folder to include tasks in mutt (??)
+* Mails with non-utf-8 charset
+* Virtual folder to include tasks in mutt (??) (FUSE?)
+* Messages without subject
