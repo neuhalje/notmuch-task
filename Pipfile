@@ -5,6 +5,7 @@
 [dev-packages]
 twine = "*"
 wheel = "*"
+flake8 = "*"
 
 [packages]
 click = "~=7.0"
