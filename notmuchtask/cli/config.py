@@ -2,22 +2,18 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) Jens Neuhalfen
 
+import configparser
 import logging
 import os
 
-try:
-    # py3k
-    import configparser
-except ImportError:
-    import ConfigParser as configparser
-
 __DEFAULT_CONFIG = """
 [tags]
-prefix = taskid:                                                                                                                                                            
+prefix = taskid:
 
 [taskwarrior]
 executable = task
 """
+
 
 def get_configuration(path=None):
     candidates = [path,
@@ -28,10 +24,9 @@ def get_configuration(path=None):
     config.read_string(__DEFAULT_CONFIG, source="<default config>")
 
     for candidate in candidates:
-        if candidate:
-            if os.path.isfile(candidate):
-                logging.debug("Using config file {}".format(candidate))
-                config.read(candidate)
-                return config
+        if candidate and os.path.isfile(candidate):
+            logging.debug("Using config file {}".format(candidate))
+            config.read(candidate)
+            return config
 
     return config

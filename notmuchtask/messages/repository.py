@@ -36,13 +36,15 @@ class Repository(object):
 
     def open(self, rw=False, retry_for=180, retry_delay=1):
         if rw:
-            if self.handle and self.handle.mode == notmuch.Database.MODE.READ_WRITE:
+            if self.handle and \
+                    self.handle.mode == notmuch.Database.MODE.READ_WRITE:
                 return self.handle
 
             start_time = time.time()
             while True:
                 try:
-                    self.handle = notmuch.Database(mode=notmuch.Database.MODE.READ_WRITE)
+                    self.handle = notmuch.Database(
+                        mode=notmuch.Database.MODE.READ_WRITE)
                     break
                 except notmuch.NotmuchError:
                     time_left = int(retry_for - (time.time() - start_time))
@@ -52,7 +54,8 @@ class Repository(object):
 
                     if time_left % 15 == 0:
                         logging.debug(
-                            'Opening the database failed. Will keep trying for another {} seconds'.format(time_left))
+                            'Opening the database failed. Will keep trying '
+                            'for another {} seconds'.format(time_left))
 
                     time.sleep(retry_delay)
         else:
@@ -112,7 +115,7 @@ class Repository(object):
         # TODO: bindings are *very* unpythonic here... iterator *or* None
         #       is a nono
         replies = message.get_replies()
-        if replies != None:
+        if replies is not None:
             for message in replies:
                 # TODO: yield from
                 for message in self.walk_replies(message):
@@ -131,7 +134,8 @@ class Repository(object):
             for message in self.walk_replies(message):
                 yield message
 
-    def add_message(self, path, sync_maildir_flags=False, new_mail_handler=None):
+    def add_message(self, path, sync_maildir_flags=False,
+                    new_mail_handler=None):
         '''
         Adds the given message to the notmuch index.
 
@@ -148,7 +152,9 @@ class Repository(object):
         :returns: a :class:`notmuch.Message` object
         '''
         # TODO: it would be nice to update notmuchs directory index here
-        message, status = self.open(rw=True).index_file(path, sync_maildir_flags=sync_maildir_flags)
+        message, status = self.open(rw=True) \
+            .index_file(path,
+                        sync_maildir_flags=sync_maildir_flags)
 
         if status != notmuch.STATUS.DUPLICATE_MESSAGE_ID:
             logging.info('Found new mail in {}'.format(path))

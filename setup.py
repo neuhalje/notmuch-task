@@ -44,23 +44,27 @@ check_python_version()
 setuptools.setup(name=read_package_variable('__project__'),
                  version=read_package_variable('__version__'),
 
-                 description="Sync mails in notmuch with taskwarrior", url='https://github.com/neuhalje/notmuch-task',
+                 description="Sync mails in notmuch with taskwarrior",
+                 url='https://github.com/neuhalje/notmuch-task',
                  author='Jens Neuhalfen', author_email='jens@neuhalfen.name',
 
                  packages=setuptools.find_packages(exclude=['tests']),
 
                  entry_points={
-                     'console_scripts': [ 'notmuchtask = %s.cli.main:cli' % (PACKAGE_NAME, ), ]
+                     'console_scripts': [
+                         'notmuchtask = %s.cli.main:cli' % (PACKAGE_NAME,), ]
                  },
 
                  long_description=build_description(), license='MIT',
                  classifiers=[
                      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-                     'Development Status :: 1 - Planning', 'Natural Language :: English',
-                     'Operating System :: OS Independent', 'Programming Language :: Python',
+                     'Development Status :: 1 - Planning',
+                     'Natural Language :: English',
+                     'Operating System :: OS Independent',
+                     'Programming Language :: Python',
                      'Programming Language :: Python :: 3',
                      'Programming Language :: Python :: 3.6', ],
 
-                 python_requires='>=%s' % (MINIMUM_PYTHON_VERSION, ),
+                 python_requires='>=%s' % (MINIMUM_PYTHON_VERSION,),
                  install_requires=["click >=7.0, <7.1", "notmuch"],
                  )

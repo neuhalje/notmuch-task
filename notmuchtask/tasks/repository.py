@@ -34,11 +34,13 @@ class Taskwarrior(object):
 
         if self._subprocess_has_encoding:
             # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-            res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            res = subprocess.run(cmd, encoding="utf-8", stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
             stdout = res.stdout
         else:
             # https://docs.python.org/3/library/subprocess.html#subprocess.CompletedProcess
-            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            res = subprocess.run(cmd, stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
             stdout = res.stdout.decode("utf-8")
         if res.returncode != 0:
             logging.error(res.stderr)
@@ -79,7 +81,8 @@ class Repository(object):
         task_id = self.tw.add(task.subject)
         task.task_id = task_id
 
-        self.tw.annotate(task_id, "Imported from message {}".format(task.message_id))
+        self.tw.annotate(task_id,
+                         "Imported from message {}".format(task.message_id))
         # TODO: add UDA
         # FIXME: load from repo
         return task

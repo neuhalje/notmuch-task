@@ -163,7 +163,7 @@ TODOs
 ****************
 
 * FIX Linter
-* Transaction with task and notmuch incl. locking
+* Transaction with task and notmuch incl. lockingline le
 * Mails with non-utf-8 charset
 * Virtual folder to include tasks in mutt (??) (FUSE?)
 * Messages without subject

@@ -3,7 +3,9 @@ import logging
 import click
 
 from notmuchtask import messages, tasks
-from notmuchtask.cli.exitcodes import EXIT_GENERAL_ERROR, EXIT_FILE_NOT_FOUND, EXIT_TASK_NOT_FOUND, \
+from notmuchtask.cli.exitcodes import EXIT_GENERAL_ERROR, \
+    EXIT_FILE_NOT_FOUND, \
+    EXIT_TASK_NOT_FOUND, \
     EXIT_MESSAGE_NOT_FOUND_IN_NOTMUCH
 from notmuchtask.cli.globals import CONTEXT
 from notmuchtask.messages.mail import extract_mail_metadata
@@ -32,7 +34,8 @@ def __exit_task_not_found(message_id):
 
 
 def __exit_message_not_found_in_notmuch(message_id):
-    click.echo("Messageid '{}'' not found in notmuch!".format(message_id), err=True)
+    click.echo("Messageid '{}'' not found in notmuch!".format(message_id),
+               err=True)
     exit(EXIT_MESSAGE_NOT_FOUND_IN_NOTMUCH)
 
 
@@ -47,13 +50,15 @@ def _find_task(message_source, tag_prefix):
 
     mail_meta = extract_mail_metadata(message_source)
 
-    with  messages.Repository() as message_repo:
-        task_ids = find_task_ids(message_repo, mail_meta.nm_message_id, tag_prefix)
+    with messages.Repository() as message_repo:
+        task_ids = find_task_ids(message_repo, mail_meta.nm_message_id,
+                                 tag_prefix)
         if len(task_ids):
             return task_ids
         else:
             logging.debug(
-                """Message with id '{}' has no task_id""".format(mail_meta.nm_message_id))
+                """Message with id '{}' has no task_id""".format(
+                    mail_meta.nm_message_id))
             return []
 
 
@@ -85,7 +90,8 @@ def find_task(message_source):
 
 def _find_or_create_task(message_source, tag_prefix):
     """
-    Create a taskwarrior task from a message OR returns the ID(s) of the existing task(s).
+    Create a taskwarrior task from a message OR returns the ID(s) of the
+    existing task(s).
 
     :param message_source: Path to an email OR None for stdin
     :return: list of taskids
@@ -94,18 +100,25 @@ def _find_or_create_task(message_source, tag_prefix):
     mail_meta = extract_mail_metadata(message_source)
 
     with messages.Repository() as message_repo:
-        task_ids = find_task_ids(message_repo, mail_meta.nm_message_id, tag_prefix)
+        task_ids = find_task_ids(message_repo, mail_meta.nm_message_id,
+                                 tag_prefix)
         if task_ids:
-            logging.debug("This message already has the following task IDs assigned: {}".format(', '.join(task_ids)))
+            logging.debug(
+                "This message already has the following task IDs assigned: {}"
+                .format(', '.join(task_ids)))
             # TODO: assert that the task exists
             return task_ids
         else:
             # create a new task
-            taskwarrior = Taskwarrior(CONTEXT.config.get("taskwarrior", "executable"))
+            taskwarrior = Taskwarrior(
+                CONTEXT.config.get("taskwarrior", "executable"))
             with tasks.Repository(taskwarrior) as task_repo:
-                new_task = Task.new_task(mail_meta.nm_message_id, mail_meta.subject)
+                new_task = Task.new_task(mail_meta.nm_message_id,
+                                         mail_meta.subject)
                 new_task = task_repo.create_task(new_task)
-                message_repo.add_tag(mail_meta.nm_message_id, "{}{}".format(tag_prefix, new_task.task_id))
+                message_repo.add_tag(mail_meta.nm_message_id,
+                                     "{}{}".format(tag_prefix,
+                                                   new_task.task_id))
 
                 return [new_task.task_id]
 
@@ -116,7 +129,8 @@ def find_or_create_task(message_source):
     """
     Returns the ID of the task, creates one if needed.
 
-    Create a taskwarrior task from a message OR returns the IDs of the existing task(s).
+    Create a taskwarrior task from a message OR returns the IDs of the
+    existing task(s).
 
     :param message_source: Path to an email OR None for stdin
     :return: prints the task IDs to stdout

@@ -10,12 +10,12 @@ virtualenv:
 addons:
   apt:
     packages:
-     - python3
-     - python3-pip
-     - taskwarrior
-     - notmuch
-     - python-notmuch
-     - python3-notmuch
+      - python3
+      - python3-pip
+      - taskwarrior
+      - notmuch
+      - python-notmuch
+      - python3-notmuch
 
 env:
   - PIPENV_VERBOSITY=-1

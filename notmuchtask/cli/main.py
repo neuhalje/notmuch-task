@@ -8,7 +8,8 @@ from notmuchtask.cli.globals import CONTEXT
 
 
 @click.group()
-@click.option('--debug', is_flag=True, flag_value=True, help='Enable debug log.')
+@click.option('--debug', is_flag=True, flag_value=True,
+              help='Enable debug log.')
 @click.option('--configfile', help='Config file.')
 def cli(debug: bool, configfile=None, logfile=None):
     if debug:

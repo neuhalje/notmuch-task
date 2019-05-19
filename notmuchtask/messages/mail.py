@@ -12,7 +12,8 @@ class MessageMeta(object):
         self.message_id = message_id
         self.subject = subject
 
-        # extract the message ID from notmuch by stripping '<..>' from message id
+        # extract the message ID from notmuch by stripping
+        # '<..>' from message id
         if message_id[0] == "<":
             self.nm_message_id = message_id[1:-1]
         else:
