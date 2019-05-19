@@ -19,7 +19,7 @@ def __exit_ok():
 
 def __exit_general_error(e):
     click.echo("Unexpected error!", err=True)
-    logging.error(e)
+    logging.exception(e)
     exit(EXIT_GENERAL_ERROR)
 
 
