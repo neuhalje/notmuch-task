@@ -1,3 +1,6 @@
+deps-dev:
+	pipenv install --dev
+
 clean-pyc:
 	find . -name '*.pyc' -exec rm --force {} +
 	find . -name '*.pyo' -exec rm --force {} +
@@ -8,17 +11,18 @@ clean-build: clean-pyc
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
 
-build: clean-build
-	python setup.py sdist bdist_wheel
+build: clean-build lint
+	pipenv run python setup.py sdist bdist_wheel
 
 pypi-test: build
-	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	pipenv run twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 pypi-prod: build
-	twine upload dist/*
+	pipenv run twine upload dist/*
 
+#lint: deps-dev # deps-dev takes too long
 lint:
-	flake8 --exclude=.tox
+	pipenv run flake8 --exclude=.tox --exclude=build/ --exclude=dist/
 
 integration-test:
 	./integration_tests.sh
