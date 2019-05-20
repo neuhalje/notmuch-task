@@ -1,6 +1,6 @@
-#######################
 mail to taskwarrior
 #######################
+
 .. image:: https://travis-ci.org/neuhalje/notmuch-task.svg?branch=master
     :target: https://travis-ci.org/neuhalje/notmuch-task
 
@@ -10,14 +10,12 @@ Linking mails (mutt, neomutt) to taskwarrior tasks and the other way around by u
 - Find tasks already assigned to e-mails
 
 
-**************
 Installing
 **************
 
 ``pip install notmuchtask``
 
 
-=============
 Usage
 =============
 
@@ -95,8 +93,13 @@ Add this to your ``.muttrc``:
 
 .. code:: text
 
-  macro index,pager tf "<pipe-message>notmuchtask find-task<enter>
-  macro index,pager tc "<pipe-message>notmuchtask find-or-create-task<enter>
+  # Make sure that there are no spaces at the beginning of the line
+  macro index,pager <F8> \
+  "<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
+  <pipe-message>notmuchtask --debug find-or-create-task<enter>\
+  <enter-command>set pipe_decode=\$my_old_pipe_decode wait_key=\$my_old_wait_key<enter>" \
+  "notmuchtask: assign mail to a task"
+
 
 
 configuring
@@ -129,13 +132,11 @@ The following config files are evaluated, the first found configfile is used:
 
 #.  ``~/.notmuchtask.conf``
 
-=============
 Develop
 =============
 
 Tidbits about development.
 
-****************
 Run DEV version
 ****************
 
@@ -158,12 +159,22 @@ For testing purposes you can run the code directly from the repository:
 
   notmuchtask --help
 
-****************
 TODOs
 ****************
 
-* FIX Linter
-* Transaction with task and notmuch incl. lockingline le
-* Mails with non-utf-8 charset
-* Virtual folder to include tasks in mutt (??) (FUSE?)
-* Messages without subject
+Known Bugs
+============
+
+* Mails with non-utf-8 charset fail to parse
+* Messages without subject fail to parse
+
+Ideas
+============
+
+Prio A (must), B (should), C (maybe never .. )
+
+* (A) Passthrough commands: enter the command for the task for a mail
+* (A) Edit task description on creation
+* (B) Use taskwarriors UDAs to store the message ID
+* (B) Transaction with task and notmuch incl. locking
+* (C) Virtual folder to include tasks in mutt (??) (FUSE?)

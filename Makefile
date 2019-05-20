@@ -16,10 +16,13 @@ clean: clean-build clean-pyc
 build: clean lint
 	pipenv run python setup.py sdist bdist_wheel
 
-pypi-test: build
+twine-check: build
+	pipenv run twine check dist/*
+
+pypi-test: twine-check
 	pipenv run twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-pypi-prod: build
+pypi-prod: twine-check
 	pipenv run twine upload dist/*
 
 #lint: deps-dev # deps-dev takes too long

@@ -55,7 +55,9 @@ setuptools.setup(name=read_package_variable('__project__'),
                          'notmuchtask = %s.cli.main:cli' % (PACKAGE_NAME,), ]
                  },
 
-                 long_description=build_description(), license='MIT',
+                 long_description=build_description(),
+                 long_description_content_type="text/x-rst",
+                 license='MIT',
                  classifiers=[
                      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
                      'Development Status :: 1 - Planning',
