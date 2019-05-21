@@ -12,6 +12,9 @@ from notmuchtask.messages.message import MessageSummary
 
 class MessageMeta(object):
     def __init__(self, message_id, subject):
+        if not message_id:
+            raise ValueError("No message-id given")
+
         self.message_id = message_id
         self.subject = subject
 

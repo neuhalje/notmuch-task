@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 eval $(./tst_setup_env.sh) || { echo Failed to setup ENV; exit 1; }
 
@@ -74,18 +74,41 @@ new_test "invalid file handling"
 test_exitcode 91 "Correct error for invalid file"  notmuchtask find-task /not/existing
 test_exitcode 91 "Correct error for invalid file"  notmuchtask find-or-create-task /not/existing
 
-MSG_1=$MAILDIR/sample-mail.txt
+#
+# Test some mails that should be parsed
+#
 
-new_test "mails without tasks"
-taskid=$(test_exitcode 93 "find-task for message without task is empty" notmuchtask find-task $MSG_1)
-empty "No taskid returned if no task found" "$taskid"
+while read TEST_MESSAGE
+do
+       
+        new_test "$TEST_MESSAGE"
+        
+        new_test "mails without tasks"
+        taskid=$(test_exitcode 93 "find-task for message without task is empty" notmuchtask find-task $TEST_MESSAGE)
+        empty "No taskid returned if no task found" "$taskid"
 
-new_test "creating tasks is idempotend"
-taskid_created=$(test_exitcode 0 "find-or-create-task for message without task gives id" notmuchtask --debug find-or-create-task $MSG_1)
-not_empty "taskid should be returned if task is created" "$taskid_created"
+        new_test "creating tasks is idempotend"
+        taskid_created=$(test_exitcode 0 "find-or-create-task for message without task gives id" notmuchtask --debug find-or-create-task $TEST_MESSAGE)
+        not_empty "taskid should be returned if task is created" "$taskid_created"
 
-taskid_found=$(test_exitcode 0 "find-task for message with task is returned" notmuchtask find-task $MSG_1)
-same "the same taskid should be returned when searching" $taskid_created $taskid_found
+        taskid_found=$(test_exitcode 0 "find-task for message with task is returned" notmuchtask find-task $TEST_MESSAGE)
+        same "the same taskid should be returned when searching" $taskid_created $taskid_found
+
+done < <(find $MAILDIR/expected_to_pass -name \*.eml)
+
+#
+# Messages that should fail
+#
+
+while read TEST_MESSAGE
+do
+       
+        new_test "$TEST_MESSAGE should fail to parse"
+        
+        taskid=$(test_exitcode 90 "find-task for message $TEST_MESSAGE should fail" notmuchtask find-task $TEST_MESSAGE)
+        empty "No taskid returned if no task found" "$taskid"
+
+done < <(find $MAILDIR/expected_to_fail -name \*.eml)
 
 if [ ! $error_count -eq 0 ]; then
   echo "$error_count failed tests"
