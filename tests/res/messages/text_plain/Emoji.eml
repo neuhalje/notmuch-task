@@ -1,0 +1,22 @@
+Return-Path: <sender@example.com>
+X-Original-To: sender@example.com
+Delivered-To: recipient@example.com
+Received: from [172.20.10.50] (unknown [172.20.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.example.com (Postfix) with ESMTPSA id 601E51BEF8
+	for <recipient@example.com>; Sun, 22 Oct 2017 19:41:13 +0000 (UTC)
+	(envelope-from sender@example.com)
+From: Example Sender <sender@example.com>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 11.0 \(3445.1.7\))
+Subject: Poop-Emoji
+Message-Id: <E18CDEE5-026F-48FA-BEA4-9C187998CB35@example.com>
+Date: Sun, 22 Oct 2017 21:41:15 +0200
+To: Example Recipient <recipient@example.com>
+X-Mailer: Apple Mail (2.3445.1.7)
+
+poop:=F0=9F=92=A9
+smiley:=F0=9F=98=80=

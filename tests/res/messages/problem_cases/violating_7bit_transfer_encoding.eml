@@ -1,0 +1,18 @@
+Return-Path: <sender@example.com>
+X-Original-To: recipient@example.com
+Delivered-To: recipient@example.com
+Date: Fri, 16 Oct 2015 20:50:04 +0200
+To: recipient@example.com
+From: <sender@example.com>
+Subject: Violating the RFC
+Message-ID: <6FD9D141-C24D-42C6-9860-C1B77310C34C@example.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="b1_cfa3353ebbe6899aa14d35a153fe5c89"
+
+
+--b1_cfa3353ebbe6899aa14d35a153fe5c89
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+The next character will be a violation of 7bit transfer encoding: Ä

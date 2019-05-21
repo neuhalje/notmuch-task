@@ -1,0 +1,28 @@
+Delivered-To: recipient@example.com
+Date: Tue, 07 Jun 2016 04:15:48 -0700
+From: Sender Example <sender@example.com>
+To: Example/example <example@noreply.example.com>
+Message-ID: <Example/example/pull/49/xxxxxxxxxx@example.com>
+Subject: Re: [Example/example] Mesage with / in message ID
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5756ace4bce0e_223f3ff9bb7432a0284321";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Precedence: list
+
+----==_mimepart_5756ace4bce0e_223f3ff9bb7432a0284321
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+plaintext message
+
+----==_mimepart_5756ace4bce0e_223f3ff9bb7432a0284321
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>html message</p>
+
+----==_mimepart_5756ace4bce0e_223f3ff9bb7432a0284321--

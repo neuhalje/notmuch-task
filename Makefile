@@ -13,7 +13,10 @@ clean-build: clean-pyc
 
 clean: clean-build clean-pyc
 
-build: clean lint
+test:
+	pipenv run py.test
+
+build: clean lint test
 	pipenv run python setup.py sdist bdist_wheel
 
 twine-check: build

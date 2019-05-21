@@ -68,5 +68,6 @@ setuptools.setup(name=read_package_variable('__project__'),
                      'Programming Language :: Python :: 3.6', ],
 
                  python_requires='>=%s' % (MINIMUM_PYTHON_VERSION,),
-                 install_requires=["click >=7.0, <7.1", "notmuch"],
+                 install_requires=["click >=7.0, <7.1", "html2text >=2018.1.9",
+                                   "notmuch"],
                  )

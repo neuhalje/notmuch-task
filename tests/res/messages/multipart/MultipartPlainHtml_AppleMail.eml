@@ -1,0 +1,38 @@
+Return-Path: <sender@example.com>
+X-Original-To: recipient@example.com
+Delivered-To: recipient@example.com
+Received: from horstcersior.local.example.com (Horstcersior.local.example.com [172.20.10.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.example.com (Postfix) with ESMTPSA id 4E13B1C1C8
+	for <recipient@example.com>; Mon, 23 Oct 2017 15:39:16 +0000 (UTC)
+	(envelope-from sender@example.com)
+From: Example Sender <sender@example.com>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_70DEC4C3-193E-4CAF-8628-500D1EFB2771"
+Mime-Version: 1.0 (Mac OS X Mail 11.0 \(3445.1.7\))
+Subject: Formatted text (RTF)
+Message-Id: <338FD5DB-7F7E-46E6-B925-DF2A73FED72F@example.com>
+Date: Mon, 23 Oct 2017 17:39:22 +0200
+To: Example Recipient <recipient@example.com>
+X-Mailer: Apple Mail (2.3445.1.7)
+
+
+--Apple-Mail=_70DEC4C3-193E-4CAF-8628-500D1EFB2771
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+	charset=us-ascii
+
+italic
+underline
+bold
+red
+
+
+--Apple-Mail=_70DEC4C3-193E-4CAF-8628-500D1EFB2771
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=us-ascii"></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;" class=""><i class="">italic</i><div class=""><u class="">underline</u></div><div class=""><b class="">bold</b></div><div class=""><font color="#ff2600" class="">red</font></div><div class=""><br class=""></div></body></html>
+--Apple-Mail=_70DEC4C3-193E-4CAF-8628-500D1EFB2771--

@@ -6,9 +6,13 @@
 twine = "*"
 wheel = "*"
 flake8 = "*"
+pytest = "*"
+pytest-describe = ">=0.11.0"
 
 [packages]
 click = "~=7.0"
+html2text = ">=2018.1.9"
+
 # Notmuch is a system package. Install it via apt install python3-notmuch
 #notmuch = "*"
 #notmuchtask = {editable = true,path = "."}

@@ -63,7 +63,7 @@ exclude_tags=deleted;spam;muted
 synchronize_flags=true
 EOF
 
-cp -r test/example-mails/* "$MAILDIR" || { echo Failed to copy mails to $MAILDIR; exit 1; }
+cp -r tests/res/messages/example-mails/* "$MAILDIR" || { echo Failed to copy mails to $MAILDIR; exit 1; }
 
 $notmuch new  >&2 || { echo notmuch new failed; exit 1; }
 

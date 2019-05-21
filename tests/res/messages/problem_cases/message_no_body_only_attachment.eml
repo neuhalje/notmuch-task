@@ -1,0 +1,24 @@
+Return-Path: <sender@example.com>
+X-Original-To: recipient@example.com
+Delivered-To: recipient@example.com
+From: Example Sender <sender@example.com>
+Content-Type: multipart/mixed;
+	boundary="Apple-Mail=_BBB7088E-149C-485D-AF27-82A29C148736"
+Mime-Version: 1.0 (Mac OS X Mail 11.0 \(3445.1.7\))
+Subject: Only attachment, no body
+Message-Id: <BF01357A-8A6E-4559-9950-96C8A6BC9CFF@example.com>
+Date: Sun, 5 Nov 2017 09:12:43 +0100
+To: Example Recipient <recipient@example.com>
+
+
+--Apple-Mail=_BBB7088E-149C-485D-AF27-82A29C148736
+Content-Disposition: attachment;
+	filename=sample_attachment.txt
+Content-Type: text/plain;
+	x-unix-mode=0600;
+	name="sample_attachment.txt"
+Content-Transfer-Encoding: 7bit
+
+Example Attachment
+
+--Apple-Mail=_BBB7088E-149C-485D-AF27-82A29C148736--

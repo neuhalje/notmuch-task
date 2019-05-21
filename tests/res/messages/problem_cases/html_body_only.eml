@@ -1,0 +1,23 @@
+Return-Path: <sender@example.com>
+Delivered-To: recipient@example.com
+Date: Wed, 6 Jul 2016 18:23:13 +0200 (CEST)
+From: Example Sender <sender@example.com>
+To: recipient@example.com
+Message-ID: <1652629293.111392.1467822193093.JavaMail.cytric@vmworld1>
+Subject: =?UTF-8?Q?Ae: =C3=A4?=
+ =?UTF-8?Q?oe: =C3=B6?=
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_111389_1249256891.1467822193088"
+
+------=_Part_111389_1249256891.1467822193088
+Content-Type: multipart/related; 
+	boundary="----=_Part_111388_369690869.1467822193087"
+
+------=_Part_111388_369690869.1467822193087
+Content-type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html lang=3D"en">
+    <body>HTML Body</body>
+</html>

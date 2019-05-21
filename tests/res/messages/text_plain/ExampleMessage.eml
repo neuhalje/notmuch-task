@@ -1,0 +1,27 @@
+Return-Path: <sender@example.com>
+X-Original-To: recipient@example.com
+Delivered-To: recipient@example.com
+Received: from sender.machine.example.com (unknown [172.20.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.example.com (Postfix) with ESMTPSA id 9260E1BDC7
+	for <recipient@example.com>; Sun, 22 Oct 2017 17:22:38 +0000 (UTC)
+	(envelope-from sender@example.com)
+From: Example Sender <sender@example.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 11.0 \(3445.1.7\))
+Subject: Example Message
+Message-Id: <A3E89D52-C626-42DF-873F-F0181A08C7F6@example.com>
+Date: Sun, 22 Oct 2017 19:22:39 +0200
+To: Example Recipient <recipient@example.com>
+X-Mailer: Apple Mail (2.3445.1.7)
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod =
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim =
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea =
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate =
+velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint =
+occaecat cupidatat non proident, sunt in culpa qui officia deserunt =
+mollit anim id est laborum.=

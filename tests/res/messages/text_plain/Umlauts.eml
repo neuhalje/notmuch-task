@@ -1,0 +1,21 @@
+Return-Path: <sender@example.com>
+X-Original-To: recipient@example.com
+Delivered-To: recipient@example.com
+Received: from [172.20.10.50] (unknown [172.20.1.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.example.com (Postfix) with ESMTPSA id 78D811BEE0
+	for <recipient@example.com>; Sun, 22 Oct 2017 19:38:28 +0000 (UTC)
+	(envelope-from sender@example.com)
+From: Jens Neuhalfen <sender@example.com>
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: base64
+Mime-Version: 1.0 (Mac OS X Mail 11.0 \(3445.1.7\))
+Subject: =?utf-8?B?VW1sYXV0czogw6TDtsO8?=
+Message-Id: <B3A0F7C6-8E71-476C-A0F5-EB7203CA926C@example.com>
+Date: Sun, 22 Oct 2017 21:38:30 +0200
+To: Jens Neuhalfen <recipient@example.com>
+X-Mailer: Apple Mail (2.3445.1.7)
+
+w6TDtsO8w4TDlsOc
