@@ -61,7 +61,8 @@ def __rtf_body(text=text_rtf_body):
 
 
 def __msg(text_extraction, bodies):
-    return MessageSummary("noid", [], [], "no subject", bodies, text_extraction=text_extraction)
+    return MessageSummary("noid", [], [], "no subject", bodies,
+                          text_extraction=text_extraction)
 
 
 def describe_text_body():

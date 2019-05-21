@@ -20,7 +20,7 @@ class MessageParsingError(ValueError):
 def get_email_parser():
     return EmailSummaryParser(
         factory_message_summary=MessageSummaryFactory(TextExtractor()),
-    factory_address=Address)
+        factory_address=Address)
 
 
 class EmailSummaryParser(object):
@@ -73,7 +73,7 @@ class EmailSummaryParser(object):
 
                 # skip any text/plain (txt) attachments
                 plain_or_html = (ctype == 'text/plain') or (
-                            ctype == 'text/html')
+                        ctype == 'text/html')
                 is_attachment = 'attachment' in cdispo
                 if plain_or_html and not is_attachment:
                     part_charset = part.get_param('charset', 'ascii')
@@ -110,7 +110,6 @@ class EmailSummaryParser(object):
         except Exception as e:
             raise MessageParsingError(e)
 
-
     def parse_message_bytes(self, message_bytes):
         """
         Read a MIME message from a bytes array.
@@ -120,7 +119,7 @@ class EmailSummaryParser(object):
 
         try:
             message: Message = email.message_from_bytes(message_bytes,
-                                                         policy=email.policy.SMTP)
+                                                        policy=email.policy.SMTP)
             self.validate_message(message)
             return self._parse_message(message)
         except MessageParsingError as pe:

@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import email
 import logging
 import os
 import sys
 
 from notmuchtask.messages.eml_parser import get_email_parser
-from notmuchtask.messages.message import MessageSummary
 
 
 class MessageMeta(object):
@@ -36,7 +34,6 @@ def _parse_email(message_bytes):
 
 
 def extract_mail_metadata(message_source):
-
     if message_source:
         message_source = os.path.expanduser(message_source)
         logging.debug("Parsing message from {}".format(message_source))

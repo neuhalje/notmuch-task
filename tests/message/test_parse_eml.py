@@ -9,15 +9,19 @@ from tests.res import get_test_resource
 
 def describe_parse_function():
     def when_no_valid_path__fails(email_summary_parser):
-        with raises(FileNotFoundError, match="Could not resolve '[^']+' to a file, aborting!"):
+        with raises(FileNotFoundError,
+                    match="Could not resolve '[^']+' to a file, aborting!"):
             email_summary_parser.parse_message("/non/existing/path")
 
     def when_no_path__fails(email_summary_parser):
-        with raises(FileNotFoundError, match="Could not resolve '' to a file, aborting!"):
+        with raises(FileNotFoundError,
+                    match="Could not resolve '' to a file, aborting!"):
             email_summary_parser.parse_message("")
 
-    def when_valid_path__returns_something(email_summary_parser, text_plain__plaintext_email_path):
-        assert email_summary_parser.parse_message(text_plain__plaintext_email_path) is not None
+    def when_valid_path__returns_something(email_summary_parser,
+                                           text_plain__plaintext_email_path):
+        assert email_summary_parser.parse_message(
+            text_plain__plaintext_email_path) is not None
 
 
 def describe_messages_must_have_sender():
@@ -50,12 +54,14 @@ def describe_messages_must_have_sender():
 def describe_plaintext_messages():
     def when_text_plain_message__reads_message_id(email_summary_parser,
                                                   text_plain__plaintext_email_path):
-        message = email_summary_parser.parse_message(text_plain__plaintext_email_path)
+        message = email_summary_parser.parse_message(
+            text_plain__plaintext_email_path)
         assert message.message_id == "<A3E89D52-C626-42DF-873F-F0181A08C7F6@example.com>"
 
     def when_text_plain_message__reads_mail_body(email_summary_parser,
                                                  text_plain__plaintext_email_path):
-        message = email_summary_parser.parse_message(text_plain__plaintext_email_path)
+        message = email_summary_parser.parse_message(
+            text_plain__plaintext_email_path)
 
         assert message.body['text/plain'].mime_type == "text/plain"
         assert message.body['text/plain'].content == """Lorem ipsum dolor sit amet, consectetur \
@@ -67,46 +73,60 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum."""
 
     def when_text_plain_message__reads_mail_subject(email_summary_parser,
                                                     text_plain__plaintext_email_path):
-        message = email_summary_parser.parse_message(text_plain__plaintext_email_path)
+        message = email_summary_parser.parse_message(
+            text_plain__plaintext_email_path)
         assert message.subject == "Example Message"
 
     def when_text_plain_message__reads_mail_recipient(email_summary_parser,
                                                       text_plain__plaintext_email_path):
-        message = email_summary_parser.parse_message(text_plain__plaintext_email_path)
+        message = email_summary_parser.parse_message(
+            text_plain__plaintext_email_path)
         assert len(message.rcpt_to) == 1
-        assert next(addr.addr_spec for addr in message.rcpt_to) == "recipient@example.com"
+        assert next(addr.addr_spec for addr in
+                    message.rcpt_to) == "recipient@example.com"
 
     def when_text_plain_message__reads_mail_sender(email_summary_parser,
                                                    text_plain__plaintext_email_path):
-        message = email_summary_parser.parse_message(text_plain__plaintext_email_path)
+        message = email_summary_parser.parse_message(
+            text_plain__plaintext_email_path)
         assert len(message.rcpt_from) == 1
         assert "sender@example.com" in message.rcpt_from
 
-    def when_emoji_message__reads_body(email_summary_parser, text_plain__emoji_email_path):
-        message = email_summary_parser.parse_message(text_plain__emoji_email_path)
+    def when_emoji_message__reads_body(email_summary_parser,
+                                       text_plain__emoji_email_path):
+        message = email_summary_parser.parse_message(
+            text_plain__emoji_email_path)
         assert message.body['text/plain'].mime_type == "text/plain"
         assert message.body['text/plain'].content == """poop:💩
 smiley:😀"""
 
-    def when_umlaut_message__reads_body(email_summary_parser, text_plain__umlauts_email_path):
-        message = email_summary_parser.parse_message(text_plain__umlauts_email_path)
+    def when_umlaut_message__reads_body(email_summary_parser,
+                                        text_plain__umlauts_email_path):
+        message = email_summary_parser.parse_message(
+            text_plain__umlauts_email_path)
         assert message.body['text/plain'].mime_type == "text/plain"
         assert message.body['text/plain'].content == """äöüÄÖÜ"""
 
-    def when_umlaut_message__reads_subject(email_summary_parser, text_plain__umlauts_email_path):
-        message = email_summary_parser.parse_message(text_plain__umlauts_email_path)
+    def when_umlaut_message__reads_subject(email_summary_parser,
+                                           text_plain__umlauts_email_path):
+        message = email_summary_parser.parse_message(
+            text_plain__umlauts_email_path)
         assert message.subject == """Umlauts: äöü"""
 
-    def when_two_recipients__both_are_found(email_summary_parser, text_plain__two_recipients):
-        message = email_summary_parser.parse_message(text_plain__two_recipients)
+    def when_two_recipients__both_are_found(email_summary_parser,
+                                            text_plain__two_recipients):
+        message = email_summary_parser.parse_message(
+            text_plain__two_recipients)
         assert "recipient@example.com" in message.rcpt_to
         assert "another_recipient@example.com" in message.rcpt_to
 
 
 def describe_multipart_messages():
-    def when_text_plain__and_html_message__reads_mail_body_for_text(email_summary_parser,
-                                                                    multipart__plain_html__apple_mail):
-        message = email_summary_parser.parse_message(multipart__plain_html__apple_mail)
+    def when_text_plain__and_html_message__reads_mail_body_for_text(
+            email_summary_parser,
+            multipart__plain_html__apple_mail):
+        message = email_summary_parser.parse_message(
+            multipart__plain_html__apple_mail)
 
         assert message.body['text/plain'].mime_type == "text/plain"
         assert message.body['text/plain'].content == """italic
@@ -116,9 +136,11 @@ red
 
 """
 
-        def when_text_plain__and_html_message__reads_mail_body_for_html(email_summary_parser,
-                                                                        multipart__plain_html__apple_mail):
-            message = email_summary_parser.parse_message(multipart__plain_html__apple_mail)
+        def when_text_plain__and_html_message__reads_mail_body_for_html(
+                email_summary_parser,
+                multipart__plain_html__apple_mail):
+            message = email_summary_parser.parse_message(
+                multipart__plain_html__apple_mail)
 
             assert message.body['text/html'].mime_type == "text/html"
             assert message.body['text/html'].content == """\
@@ -129,26 +151,33 @@ class="">bold</b></div><div class=""><font color="#ff2600" class="">red</font></
 class=""><br class=""></div></body></html>\
 """
 
-    def when_text_plain__and_html_message__reads_mail_subject(email_summary_parser,
-                                                              multipart__plain_html__apple_mail):
-        message = email_summary_parser.parse_message(multipart__plain_html__apple_mail)
+    def when_text_plain__and_html_message__reads_mail_subject(
+            email_summary_parser,
+            multipart__plain_html__apple_mail):
+        message = email_summary_parser.parse_message(
+            multipart__plain_html__apple_mail)
         assert message.subject == "Formatted text (RTF)"
 
-    def when_text_plain__and_html_message__reads_mail_recipient(email_summary_parser,
-                                                                multipart__plain_html__apple_mail):
-        message = email_summary_parser.parse_message(multipart__plain_html__apple_mail)
+    def when_text_plain__and_html_message__reads_mail_recipient(
+            email_summary_parser,
+            multipart__plain_html__apple_mail):
+        message = email_summary_parser.parse_message(
+            multipart__plain_html__apple_mail)
 
         assert "recipient@example.com" in message.rcpt_to
         assert len(message.rcpt_to) == 1
 
-    def when_text_plain__and_html_message__reads_mail_sender(email_summary_parser,
-                                                             multipart__plain_html__apple_mail):
-        message = email_summary_parser.parse_message(multipart__plain_html__apple_mail)
+    def when_text_plain__and_html_message__reads_mail_sender(
+            email_summary_parser,
+            multipart__plain_html__apple_mail):
+        message = email_summary_parser.parse_message(
+            multipart__plain_html__apple_mail)
 
         assert "sender@example.com" in message.rcpt_from
         assert len(message.rcpt_from) == 1
 
-    def when_unicode_chinese_spam__decoded(email_summary_parser, multipart__chinese_spam):
+    def when_unicode_chinese_spam__decoded(email_summary_parser,
+                                           multipart__chinese_spam):
         message = email_summary_parser.parse_message(multipart__chinese_spam)
 
         assert "sender@example.com" in message.rcpt_from
@@ -168,7 +197,8 @@ def describe_problem_messages():
         message = email_summary_parser.parse_message(path)
         assert message is not None
 
-    def when_text_plain__encoded_iso_8859_1_body_gets_decoded(email_summary_parser):
+    def when_text_plain__encoded_iso_8859_1_body_gets_decoded(
+            email_summary_parser):
         path = _message_path("text_plain__encoded_iso-8859-1.eml")
         message = email_summary_parser.parse_message(path)
         assert message is not None
@@ -190,7 +220,8 @@ def describe_problem_messages():
                    'text/plain'].content == "The next character will be a violation of 7bit " \
                                             "transfer encoding: Ä"
 
-    def when_message_no_body_only_attachment__no_bodies_found(email_summary_parser):
+    def when_message_no_body_only_attachment__no_bodies_found(
+            email_summary_parser):
         path = _message_path("message_no_body_only_attachment.eml")
         message = email_summary_parser.parse_message(path)
         assert message is not None

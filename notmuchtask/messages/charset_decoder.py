@@ -5,7 +5,8 @@ def decode_payload(advised_charset, payload):
         except UnicodeDecodeError:
             return False, None
 
-    encodings = [advised_charset, "ascii", "utf-8", "iso-8859-15", "iso-8859-1", "latin1",
+    encodings = [advised_charset, "ascii", "utf-8", "iso-8859-15",
+                 "iso-8859-1", "latin1",
                  "Windows-1252"]
     for encoding in encodings:
         success, result = try_decode(encoding)

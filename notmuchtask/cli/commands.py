@@ -105,7 +105,7 @@ def _find_or_create_task(message_source, tag_prefix):
         if task_ids:
             logging.debug(
                 "This message already has the following task IDs assigned: {}"
-                .format(', '.join(task_ids)))
+                    .format(', '.join(task_ids)))
             # TODO: assert that the task exists
             return task_ids
         else:

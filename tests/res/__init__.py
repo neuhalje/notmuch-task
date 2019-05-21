@@ -2,7 +2,8 @@ import os
 
 
 def get_test_resource_root_dir():
-    directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "messages")
+    directory = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "messages")
     return directory
 
 

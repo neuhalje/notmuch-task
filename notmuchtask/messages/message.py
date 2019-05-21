@@ -48,12 +48,15 @@ class MessageSummaryFactory(object):
         self._text_extraction = text_extraction
 
     def __call__(self, *args, **kwargs):
-        return MessageSummary(*args, **kwargs, text_extraction=self._text_extraction)
+        return MessageSummary(*args, **kwargs,
+                              text_extraction=self._text_extraction)
 
 
 class MessageSummary(object):
-    def __init__(self, message_id: str, rcpt_to: List[Address], rcpt_from: List[Address],
-                 subject: str, bodies: List[Body], primary_key: str = None, text_extraction=None):
+    def __init__(self, message_id: str, rcpt_to: List[Address],
+                 rcpt_from: List[Address],
+                 subject: str, bodies: List[Body], primary_key: str = None,
+                 text_extraction=None):
         """
         Construct a simple message.
 
@@ -92,7 +95,8 @@ class MessageSummary(object):
         else:
             for body in bodies or []:
                 if body.mime_type in self.body:
-                    raise ValueError("mime type {} passed twice!".format(body.mime_type))
+                    raise ValueError(
+                        "mime type {} passed twice!".format(body.mime_type))
                 self.body[body.mime_type] = body
 
     @property
