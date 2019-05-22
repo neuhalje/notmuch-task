@@ -3,6 +3,8 @@ mail to taskwarrior
 
 .. image:: https://travis-ci.org/neuhalje/notmuch-task.svg?branch=master
     :target: https://travis-ci.org/neuhalje/notmuch-task
+.. image:: https://badge.fury.io/py/notmuchtask.png
+    :target: https://badge.fury.io/py/notmuchtask
 
 Linking mails (mutt, neomutt) to taskwarrior tasks and the other way around by utilising notmuch.
 
