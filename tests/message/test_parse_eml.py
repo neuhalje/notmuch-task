@@ -190,7 +190,8 @@ class=""><br class=""></div></body></html>\
 
 def describe_problem_messages():
     def _message_path(message_name):
-        return get_test_resource("problem_cases", message_name)
+        return get_test_resource("expected_to_pass", "problem_cases",
+                                 filename=message_name)
 
     def when_multipart_encoded_latin1_body_gets_decoded(email_summary_parser):
         path = _message_path("multipart__encoded_latin1.eml")
