@@ -60,15 +60,15 @@ class Repository(object):
         self.tw = tw
 
     def __enter__(self):
-        '''
+        """
         Implements the context manager protocol.
-        '''
+        """
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        '''
+        """
         Implements the context manager protocol.
-        '''
+        """
         # TODO: Implement
         pass
 

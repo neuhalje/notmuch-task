@@ -3,7 +3,6 @@
 import email
 import email.policy
 import logging
-from email.message import Message
 from pathlib import Path
 
 from notmuchtask.messages.extract import TextExtractor
@@ -36,12 +35,14 @@ class EmailSummaryParser(object):
 
         # https: // tools.ietf.org / html / rfc822  # section-6.3
         # at least one must be present: FROM / RESENT - FROM / Sender
-        has_some_sender = message["From"] or message["Resent-From"] or message[
-            "Sender"]
+        has_some_sender = message["From"] \
+                          or message["Resent-From"] \
+                          or message["Sender"]
 
         if not has_some_sender:
             raise MessageParsingError(
-                "Messages must have at least one of FROM / RESENT-FROM / Sender")
+                "Messages must have at least one of "
+                "FROM / RESENT-FROM / Sender")
 
     def _map_address(self, address_header_address):
         return self._factory_address(
@@ -81,7 +82,8 @@ class EmailSummaryParser(object):
                     unicode_body = decode_payload(part_charset, payload)
                     body = Body('text/plain', unicode_body)
                     break
-        # not multipart - i.e. plain text, no attachments, keeping fingers crossed
+        # not multipart - i.e. plain text, no attachments,
+        # keeping fingers crossed
         else:
             message_charset = message.get_param('charset', 'ascii')
             payload = message.get_payload(decode=True)
@@ -101,8 +103,10 @@ class EmailSummaryParser(object):
         """
 
         try:
-            message: Message = email.message_from_string(message_string,
-                                                         policy=email.policy.SMTP)
+            message = email.message_from_string(
+                message_string,
+                policy=email.policy.SMTP)
+
             self.validate_message(message)
             return self._parse_message(message)
         except MessageParsingError as pe:
@@ -114,12 +118,12 @@ class EmailSummaryParser(object):
         """
         Read a MIME message from a bytes array.
 
-        :param message_string: A MIME message as (unicode) string.
+        :param message_bytes: A MIME message as byte array.
         """
 
         try:
-            message: Message = email.message_from_bytes(message_bytes,
-                                                        policy=email.policy.SMTP)
+            message = email.message_from_bytes(message_bytes,
+                                               policy=email.policy.SMTP)
             self.validate_message(message)
             return self._parse_message(message)
         except MessageParsingError as pe:

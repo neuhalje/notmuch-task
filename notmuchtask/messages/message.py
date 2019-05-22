@@ -20,7 +20,8 @@ class Address(object):
 
     def __eq__(self, other):
         if isinstance(other, Address):
-            return self.addr_spec == other.addr_spec and self.display_name == other.display_name
+            return self.addr_spec == other.addr_spec \
+                   and self.display_name == other.display_name
         elif isinstance(other, str):
             # Allow Address objects to be compared to strings
             return self.addr_spec == other
@@ -40,7 +41,8 @@ class Body(object):
         self.content = content
 
     def __eq__(self, other):
-        return self.mime_type == other.mime_type and self.content == other.content
+        return self.mime_type == other.mime_type \
+               and self.content == other.content
 
 
 class MessageSummaryFactory(object):
@@ -65,7 +67,8 @@ class MessageSummary(object):
         :param rcpt_to: Recipient of the message. (list)
         :param rcpt_from: Sender of the message. (list)
         :param subject: Subject of the message.
-        :param bodies: List of the messages body. The same format must not be present twice.
+        :param bodies: List of the messages body.
+                       The same format must not be present twice.
         """
 
         self.__MAX_EXCERPT_LEN__ = 120
@@ -124,6 +127,8 @@ class MessageSummary(object):
             return ""
 
     def __eq__(self, other):
-        return self.message_id == other.message_id and self.rcpt_to == other.rcpt_to and \
-               self.rcpt_from == other.rcpt_from and self.subject == other.subject and self.body \
-               == other.body
+        return self.message_id == other.message_id \
+               and self.rcpt_to == other.rcpt_to \
+               and self.rcpt_from == other.rcpt_from \
+               and self.subject == other.subject \
+               and self.body == other.body

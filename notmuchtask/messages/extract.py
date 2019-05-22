@@ -23,7 +23,8 @@ class TextExtractor(object):
         elif source_mime_type == 'text/html':
             return self._html2text.handle(source_text)
         else:
-            raise ValueError(f"Mime type '{source_mime_type}' not supported")
+            raise ValueError(
+                "Mime type '{}' not supported".format(source_mime_type))
 
     def to_markdown(self, source_mime_type, source_text):
         if source_mime_type == 'text/plain':
@@ -31,4 +32,5 @@ class TextExtractor(object):
         elif source_mime_type == 'text/html':
             return self._html2markdown.handle(source_text)
         else:
-            raise ValueError(f"Mime type '{source_mime_type}' not supported")
+            raise ValueError(
+                "Mime type '{}' not supported".format(source_mime_type))
