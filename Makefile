@@ -30,7 +30,7 @@ pypi-prod: twine-check
 
 #lint: deps-dev # deps-dev takes too long
 lint:
-	pipenv run flake8 --exclude=.tox --exclude=build/ --exclude=dist/
+	pipenv run flake8 --exclude=.tox --exclude=build/ --exclude=dist/ --exclude=tests/
 
 integration-test:
 	./integration_tests.sh
