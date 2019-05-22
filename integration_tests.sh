@@ -113,4 +113,6 @@ done < <(find $MAILDIR/expected_to_fail -name \*.eml)
 if [ ! $error_count -eq 0 ]; then
   echo "$error_count failed tests"
   exit 1
+else
+  echo Successfully ran integration test!
 fi
